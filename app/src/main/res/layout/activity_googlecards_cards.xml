@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:padding="@dimen/card_padding"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/text_normal" android:id="@+id/activity_googlecards_card_textview" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" />
+    <ImageView android:id="@+id/activity_googlecards_card_imageview" android:layout_width="fill_parent" android:layout_height="@dimen/img_normal" android:scaleType="centerCrop" />
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+        <TextView android:gravity="top" android:id="@+id/ReleaseDate" android:paddingBottom="@dimen/textview_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" style="@style/SecondaryText" />
+        <RatingBar android:gravity="right" android:id="@+id/ratingBar" android:paddingLeft="@dimen/ratingbar_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:progress="95" android:numStars="5" android:isIndicator="false" android:layout_alignParentRight="true" style="?android:attr/ratingBarStyleSmall" />
+    </RelativeLayout>
+    <TextView android:id="@+id/idMovie" android:paddingLeft="@dimen/project_card_padding" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/SecondaryTextLime" />
+</LinearLayout>
