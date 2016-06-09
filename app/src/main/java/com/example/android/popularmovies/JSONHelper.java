@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * Created by modassirpc on 08-06-2016.
  */
 public class JSONHelper {
-    public static ArrayList<Movie> PopularList = new ArrayList<Movie>();
     public static String baseImage_url =  "http://cf2.imgobject.com/t/p/";
     public static String sizeBackdrop_small = "w300";
     public static String sizePoster_small = "w154";
@@ -29,10 +28,12 @@ public class JSONHelper {
         return (String) httpclient.execute(httget, new BasicResponseHandler());
     }
 
-    public static ArrayList<Movie> GetMovies(Context paramContext)
+    public static ArrayList<Movie> GetMovies(String query,Context paramContext)
     {
+        ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
         try {
-            JSONArray localJSONArray = new JSONObject(makeGetRequest("http://api.themoviedb.org/3/movie/top_rated" + "?api_key=" + paramContext.getString(R.string.api_key))).getJSONArray("results");
+
+            JSONArray localJSONArray = new JSONObject(makeGetRequest("http://api.themoviedb.org/3/movie/"+query + "?api_key=" + paramContext.getString(R.string.api_key))).getJSONArray("results");
             for(int i =0;i<localJSONArray.length();i++){
                 JSONObject localJSONObject = localJSONArray.getJSONObject(i);
                 Movie localMovie = new Movie();
@@ -44,14 +45,14 @@ public class JSONHelper {
                 localMovie.overview = localJSONObject.getString("overview");
                 localMovie.defaultposterurl = (baseImage_url + sizePoster_small + localJSONObject.getString("poster_path"));
                 localMovie.defaultbackdropurl = (baseImage_url + sizeBackdrop_small + localJSONObject.getString("backdrop_path"));
-                PopularList.add(localMovie);
+                movieArrayList.add(localMovie);
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-      return PopularList;
+      return movieArrayList;
     }
     public static Movie GetMovieById(Context paramContext,String movieId){
         Movie localMovie = null;

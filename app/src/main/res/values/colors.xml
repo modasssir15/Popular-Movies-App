@@ -6,4 +6,5 @@
     <color name="secondary_text">#ff999999</color>
     <color name="lime_dark">#ff96aa39</color>
     <color name="fragment_color">#e2e2e2</color>
+    <color name="nav_drawer_default">#ff5d5d5d</color>
 </resources>
