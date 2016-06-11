@@ -103,8 +103,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">false</item>
     </style>
-    <color name="accent_default">#ffc34b4b</color>
-    <color name="actionbar_background">#ff101010</color>
+
     <style name="AppBaseTheme" parent="@style/Theme.AppCompat">
         <item name="android:actionBarSize">@dimen/toolbar_default_height</item>
         <item name="windowActionBar">false</item>

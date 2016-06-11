@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 <FrameLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout android:id="@+id/screen" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/details_vertical_margin">
-        <FrameLayout android:id="@+id/flBackdropWrapper" android:layout_width="fill_parent" android:layout_height="200dp" android:layout_alignParentTop="true">
+
+        <FrameLayout android:id="@+id/flBackdropWrapper" android:layout_width="fill_parent" android:layout_height="200dp"  android:layout_alignParentTop="true">
             <ImageView android:id="@+id/imgBackdrop" android:contentDescription="@string/empty" style="@style/PortraitBackdrop" />
             <View android:background="?attr/backdropActionbarGradient" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" />
 
@@ -13,7 +18,7 @@
         </FrameLayout>
         <HorizontalScrollView android:id="@+id/votes" android:background="?attr/movieDetailBarBackground" android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/flBackdropWrapper" >
             <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/balkenLayout" android:paddingTop="@dimen/medium_stripe_padding" android:paddingBottom="@dimen/medium_stripe_padding" android:layout_width="wrap_content" android:layout_height="wrap_content">
-                <com.example.android.popularmovies.SizeableTextView android:textSize="18sp" android:textColor="?attr/textListEntryTitleColor" android:gravity="center_vertical" android:layout_gravity="center" android:id="@+id/txtVotes" android:background="@android:color/transparent" android:paddingLeft="@dimen/votes_padding_horizontal" android:paddingRight="@dimen/votes_padding_horizontal"  android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/votes_margin_left" android:layout_marginRight="@dimen/votes_margin_right" />
+                <TextView  android:gravity="center_vertical" android:layout_gravity="center" android:id="@+id/txtVotes" android:background="@android:color/transparent" android:paddingLeft="@dimen/votes_padding_horizontal" android:paddingRight="@dimen/votes_padding_horizontal"   android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/votes_margin_left" android:layout_marginRight="@dimen/votes_margin_right" />
             </LinearLayout>
         </HorizontalScrollView>
         <include android:layout_width="wrap_content" android:id="@+id/moviePosterFrame" android:layout_height="wrap_content" android:layout_above="@+id/rlDetailsWrapper" layout="@layout/infragment_cover" />
@@ -27,6 +32,8 @@
         <com.example.android.popularmovies.SizeableTextView android:id="@+id/txtDetailRelease" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/txtDetailReleaseHeader" style="?attr/textMovieDetails" />
         <com.example.android.popularmovies.SizeableTextView android:id="@+id/txtDetailDescriptionHeader" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/description_header" android:layout_below="@id/txtDetailRelease" style="?attr/textMovieDetailsHeader" />
         <com.example.android.popularmovies.SizeableTextView android:id="@+id/txtDetailDescription" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/txtDetailDescriptionHeader" style="?attr/textMovieDetails" />
+        <com.example.android.popularmovies.SizeableTextView android:id="@+id/txtDetailReviewsHeader" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/reviews_header" android:layout_below="@id/txtDetailDescription" style="?attr/textMovieDetailsHeader" />
+        <ListView android:id="@+id/listDetailReviews" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/txtDetailReviewsHeader"  />
 
         <RatingBar
             android:id="@+id/ratingBar" android:paddingLeft="@dimen/ratingbar_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:progress="95" android:numStars="5" android:isIndicator="false"
@@ -38,5 +45,7 @@
 
 
 
+
 </RelativeLayout>
 </FrameLayout>
+    </ScrollView>

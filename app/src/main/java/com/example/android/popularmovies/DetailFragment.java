@@ -1,6 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -8,21 +9,30 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.popularmovies.adapter.DatabaseAdapter;
 import com.example.android.popularmovies.handlers.AnimationCreator;
 import com.example.android.popularmovies.handlers.DelayedShiftAnimationCreator;
 import com.example.android.popularmovies.handlers.MediumTitleViewHandler;
 import com.example.android.popularmovies.handlers.ReloadProgressBarHandler;
 import com.example.android.popularmovies.handlers.SimpleDetailViewHandler;
+import com.example.android.popularmovies.handlers.SimpleReviewHandler;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
@@ -42,6 +52,11 @@ public class DetailFragment extends Fragment {
     private ImageView mImageBackdrop;
     private ImageView mImgDetailCover;
     private Trailer trailer;
+    private DatabaseAdapter mDatabaseAdapter;
+    private TextView reviewsHeader;
+    ArrayList<Review> reviewsList = new ArrayList<Review>();
+    ListView listViewReviews ;
+    private ReviewsListAdapter reviewsListAdapter;
     float rating;
     Boolean succes;
 
@@ -63,21 +78,26 @@ public class DetailFragment extends Fragment {
         this.mPlayTrailer = (ImageView) view.findViewById(R.id.iconPlayTrailers);
         this.mImageBackdrop = (ImageView) view.findViewById(R.id.imgBackdrop);
         this.mImgDetailCover =  (ImageView) view.findViewById(R.id.imgDetailCover);
+        reviewsHeader = (TextView) view.findViewById(R.id.txtDetailReviewsHeader);
+        listViewReviews = (ListView) view.findViewById(R.id.listDetailReviews);
         Typeface fontRobotoLight = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
         setTypeFace(fontRobotoLight, description, release);
         Typeface fontRobotoItalic = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Italic.ttf");
         this.mTitle.setTypeface(fontRobotoItalic);
-
+        setHasOptionsMenu(true);
+        mDatabaseAdapter = new DatabaseAdapter(getActivity());
         fontRobotoLight = Typeface.createFromAsset(getActivity().getAssets(), "RobotoCondensed-Light.ttf");
-        setTypeFace(fontRobotoLight, releaseHeader,descriptionHeader);
+        setTypeFace(fontRobotoLight, reviewsHeader, releaseHeader, descriptionHeader);
+
         this.mPlayTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(trailer != null)
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailer.trailer_url)));
+                if (trailer != null)
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailer.trailer_url)));
             }
         });
         new GetMovies(movie_id).execute(new Void[0]);
+        new GetReviews(movie_id).execute(new Void[0]);
 
 
      return view;
@@ -87,6 +107,22 @@ public class DetailFragment extends Fragment {
             if (view != null) {
                 view.setTypeface(tf);
             }
+        }
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu,MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.show_public_movie_details, menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_favourite:
+                if(movie != null){
+                    mDatabaseAdapter.insertInToFavouritesInfo(movie.id,movie.name,movie.overview,movie.released,movie.rating,movie.votes_total,movie.defaultbackdropurl,movie.defaultposterurl);
+
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
         }
     }
     protected void loadMovieDataIntoViews()
@@ -103,6 +139,29 @@ public class DetailFragment extends Fragment {
         rate.setOnTouchListener(new touchListener());
         new GetTrailers(movie_id).execute(new Void[0]);
 
+    }
+     class ReviewsListAdapter extends ArrayAdapter<Review> {
+        Context context;
+
+        public ReviewsListAdapter(Context context, int i, ArrayList<Review> arrayList) {
+            super(context, i, arrayList);
+            this.context = context;
+        }
+
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            Review rev  = (Review) getItem(i);
+            if (view == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.list_reviews, viewGroup, false);
+            }
+            TextView textView = (TextView) view.findViewById(R.id.txtDetailReviews);
+            Typeface fontRobotoLight = Typeface.createFromAsset(context.getAssets(), "Roboto-Light.ttf");
+            textView.setTypeface(fontRobotoLight);
+            AnimationCreator animationCreator = new DelayedShiftAnimationCreator();
+            SimpleReviewHandler reviewHandler = new SimpleReviewHandler(textView);
+            reviewHandler.update(rev,animationCreator);
+
+            return view;
+        }
     }
     class touchListener implements View.OnTouchListener{
 
@@ -165,6 +224,36 @@ public class DetailFragment extends Fragment {
     protected void loadTrailer(){
      this.mReloadProgressBarHandler.hide();
 
+    }
+    private class GetReviews extends AsyncTask<Void, Void, Integer> {
+        String movieid;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        private GetReviews(String movieId) {
+            movieid = movieId;
+        }
+
+        protected Integer doInBackground(Void... params) {
+
+            reviewsList = JSONHelper.GetReviewsById(movieid,getActivity());
+            return Integer.valueOf(1);
+        }
+
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            reviewsListAdapter = new ReviewsListAdapter(DetailFragment.this.getActivity(), R.layout.list_reviews,  reviewsList);
+            listViewReviews.setAdapter(reviewsListAdapter);
+            DetailFragment.this.reviewsListAdapter.notifyDataSetChanged();
+
+
+
+        }
     }
 
     private class GetMovies extends AsyncTask<Void, Void, Integer> {

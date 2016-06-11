@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    <string name="api_key">Api Key Here</string>
+    <string name="api_key">56668e24044313e5a8eac9f11f54dd5e</string>
     <string name="navigation_popular">Popular</string>
     <string name="navigation_rated">Top Rated</string>
+    <string name="navigation_favourites">Favourites</string>
     <string name="draweClose">close</string>
     <string name="drawerOpen">open</string>
     <string name="empty" />
     <string name="description_header">DESCRIPTION:</string>
+    <string name="reviews_header">REVIEWS:</string>
     <string name="release_header">RELEASE:</string>
     <string name="dialog_rating">Give a Rating!</string>
     <string name="dialog_ratingsend">Send</string>

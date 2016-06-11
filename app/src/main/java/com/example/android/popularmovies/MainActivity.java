@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.example.android.popularmovies.adapter.DatabaseAdapter;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(category.equals("top_rated"))
             setTitle("Top Rated Movies");
+        else if(category.equalsIgnoreCase("favourites"))
+            setTitle("Favourite Movies");
         if(findViewById(R.id.detail) != null){
             mTwoPane = true;
             findViewById(R.id.detail).setVisibility(View.GONE);
@@ -105,9 +109,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.drawer_rated:
                 Intent intent1 = getIntent();
+                item.setChecked(true);
                 intent1.putExtra("sort", "top_rated");
                 finish();
                 startActivity(intent1);
+                break;
+            case R.id.drawer_favourites:
+                Intent intent2 = getIntent();
+                item.setChecked(true);
+                intent2.putExtra("sort", "favourites");
+                finish();
+                startActivity(intent2);
                 break;
 
         }
@@ -145,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         private GridView gridView;
         String query = "popular";
         Boolean twoPane = false;
+        DatabaseAdapter mDatabaseAdapter;
 
 
 
@@ -176,17 +189,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         ArrayList<Movie> listMovies = new ArrayList();
                         Iterator it;
                         Movie movie;
-                         it = PlaceholderFragment.this.moviesReceived.iterator();
+                        it = PlaceholderFragment.this.moviesReceived.iterator();
                         while (it.hasNext()) {
                             movie = (Movie) it.next();
                             listitems.add(movie.name);
                             listMovies.add(movie);
-                                }
+                        }
 
-                            PlaceholderFragment.this.mGoogleCardsAdapter = new GoogleCardsAdapter(PlaceholderFragment.this.getActivity(),R.layout.activity_googlecards_cards, listMovies);
-                            PlaceholderFragment.this.gridView.setClickable(true);
-                            PlaceholderFragment.this.gridView.setAdapter(PlaceholderFragment.this.mGoogleCardsAdapter);
-                            PlaceholderFragment.this.mGoogleCardsAdapter.notifyDataSetChanged();
+                        PlaceholderFragment.this.mGoogleCardsAdapter = new GoogleCardsAdapter(PlaceholderFragment.this.getActivity(),R.layout.activity_googlecards_cards, listMovies);
+                        PlaceholderFragment.this.gridView.setClickable(true);
+                        PlaceholderFragment.this.gridView.setAdapter(PlaceholderFragment.this.mGoogleCardsAdapter);
+                        PlaceholderFragment.this.mGoogleCardsAdapter.notifyDataSetChanged();
 
 
 
@@ -216,15 +229,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.page = 1;
             this.loadingnewpage = true;
             query = getArguments().getString("query");
+
             twoPane = getArguments().getBoolean("pane");
             Log.e("Arguments",query);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             this.gridView = (GridView) rootView.findViewById(R.id.gridview);
+
             this.pw = new ProgressDialog(getActivity());
             pw.setMessage("Fetching Movie Info...");
             pw.setCancelable(false);
-            pw.show();
-            new GetMovies(query).execute(new Void[0]);
+            if(query.equals("favourites")){
+                mDatabaseAdapter = new DatabaseAdapter(getActivity());
+                moviesReceived = mDatabaseAdapter.getFavouritesInfo();
+                try {
+                    ArrayList<String> listitems = new ArrayList();
+                    ArrayList<Movie> listMovies = new ArrayList();
+                    Iterator it;
+                    Movie movie;
+                    it = PlaceholderFragment.this.moviesReceived.iterator();
+                    while (it.hasNext()) {
+                        movie = (Movie) it.next();
+                        listitems.add(movie.name);
+                        listMovies.add(movie);
+                    }
+
+                    PlaceholderFragment.this.mGoogleCardsAdapter = new GoogleCardsAdapter(PlaceholderFragment.this.getActivity(),R.layout.activity_googlecards_cards, listMovies);
+                    PlaceholderFragment.this.gridView.setClickable(true);
+                    PlaceholderFragment.this.gridView.setAdapter(PlaceholderFragment.this.mGoogleCardsAdapter);
+                    PlaceholderFragment.this.mGoogleCardsAdapter.notifyDataSetChanged();
+
+
+
+                } catch (Exception e) {
+                }
+
+
+            }else {
+                pw.show();
+
+                new GetMovies(query).execute(new Void[0]);
+            }
             return rootView;
         }
 

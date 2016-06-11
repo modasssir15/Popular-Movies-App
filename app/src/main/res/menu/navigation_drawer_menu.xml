@@ -2,10 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/nav_1" android:checkableBehavior="single">
         <item android:icon="@drawable/popular" android:id="@+id/drawer_popular" android:checked="true" android:title="@string/navigation_popular" />
-
-    </group>
-    <group android:id="@+id/nav_2" android:checkableBehavior="single">
         <item android:icon="@drawable/rated" android:id="@+id/drawer_rated"  android:title="@string/navigation_rated" />
+        <item android:icon="@drawable/favorites" android:id="@+id/drawer_favourites"  android:title="@string/navigation_favourites" />
     </group>
 
 </menu>

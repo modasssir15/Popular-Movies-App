@@ -3,6 +3,7 @@ package com.example.android.popularmovies;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
@@ -97,6 +98,28 @@ public class JSONHelper {
         }
 
       return movieArrayList;
+    }
+    public static ArrayList<Review> GetReviewsById(String query,Context paramContext)
+    {
+        ArrayList<Review> reviewArrayList = new ArrayList<Review>();
+        try {
+
+            JSONArray localJSONArray = new JSONObject(makeGetRequest("http://api.themoviedb.org/3/movie/"+query +"/reviews"+ "?api_key=" + paramContext.getString(R.string.api_key))).getJSONArray("results");
+            for(int i =0;i<localJSONArray.length();i++){
+                JSONObject localJSONObject = localJSONArray.getJSONObject(i);
+                Review localReview = new Review();
+                localReview.id = localJSONObject.getString("id");
+                localReview.name = localJSONObject.getString("author");
+                Log.e("review",localReview.name);
+                localReview.message = localJSONObject.getString("content");
+                reviewArrayList.add(localReview);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return reviewArrayList;
     }
     public static Movie GetMovieById(Context paramContext,String movieId){
         Movie localMovie = null;
