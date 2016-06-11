@@ -11,11 +11,24 @@
     <dimen name="ratingbar_padding">2dp</dimen>
     <dimen name="ratingbar_margin">16dp</dimen>
     <dimen name="img_width">200dp</dimen>
+    <dimen name="cover_frame">2.0dip</dimen>
+    <dimen name="paddingHorizontalDetailsText">16.0dip</dimen>
+    <dimen name="textDetailMarginTop">4.0dip</dimen>
+    <dimen name="toolbar_default_height">56.0dip</dimen>
     <dimen name="img_margin">16dp</dimen>
     <dimen name="img_marginTop">61dp</dimen>
     <dimen name="text_small">16sp</dimen>
     <dimen name="release_margin">33dp</dimen>
     <dimen name="votes_margin">26dp</dimen>
     <dimen name="card_padding">10dp</dimen>
+    <dimen name="container_width">500dp</dimen>
+    <dimen name="details_vertical_margin">10.0dip</dimen>
+    <dimen name="medium_stripe_padding">10.0dip</dimen>
+    <dimen name="votes_padding_horizontal">6.0dip</dimen>
+    <dimen name="votes_margin_left">16.0dip</dimen>
+    <dimen name="votes_margin_right">8.0dip</dimen>
+    <dimen name="activity_horizontal_margin">10.0dip</dimen>
+    <dimen name="activity_vertical_margin">10.0dip</dimen>
+    <dimen name="text_size_medium">18.0sp</dimen>
 
 </resources>

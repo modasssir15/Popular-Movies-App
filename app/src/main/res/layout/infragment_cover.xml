@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/zLayoutTop"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@+id/imgDetailCoverWrapper" android:background="?attr/imageBackgroundStroke" android:padding="@dimen/cover_frame" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+    <FrameLayout android:id="@+id/imgMovieListRowCoverStroke" android:background="@drawable/image_frame_line" android:padding="1px" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView android:id="@+id/imgDetailCover" android:contentDescription="@string/empty" style="@style/ImageCoverStroke" />
+    </FrameLayout>
+</FrameLayout>
+    </RelativeLayout>

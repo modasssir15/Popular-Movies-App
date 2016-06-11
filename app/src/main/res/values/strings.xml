@@ -5,4 +5,9 @@
     <string name="navigation_rated">Top Rated</string>
     <string name="draweClose">close</string>
     <string name="drawerOpen">open</string>
+    <string name="empty" />
+    <string name="description_header">DESCRIPTION:</string>
+    <string name="release_header">RELEASE:</string>
+    <string name="dialog_rating">Give a Rating!</string>
+    <string name="dialog_ratingsend">Send</string>
 </resources>

@@ -4,8 +4,9 @@
     android:padding="@dimen/card_padding"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/text_view_header"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textSize="@dimen/text_normal" android:id="@+id/activity_googlecards_card_textview" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" />
+    <TextView android:textSize="@dimen/text_normal" android:id="@+id/activity_googlecards_card_textview" android:layout_width="fill_parent" android:textColor="@color/white" android:layout_height="wrap_content" android:singleLine="true" />
     <ImageView android:id="@+id/activity_googlecards_card_imageview" android:layout_width="fill_parent" android:layout_height="@dimen/img_normal" android:scaleType="centerCrop" />
     <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
         <TextView android:gravity="top" android:id="@+id/ReleaseDate" android:paddingBottom="@dimen/textview_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentLeft="true" style="@style/SecondaryText" />

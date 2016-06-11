@@ -7,4 +7,15 @@
     <color name="lime_dark">#ff96aa39</color>
     <color name="fragment_color">#e2e2e2</color>
     <color name="nav_drawer_default">#ff5d5d5d</color>
+    <color name="grey">#ff909090</color>
+    <color name="gplus_color_1">#ff3e802f</color>
+    <color name="gplus_color_2">#fff4b400</color>
+    <color name="gplus_color_3">#ff427fed</color>
+    <color name="gplus_color_4">#ffb23424</color>
+    <color name="window_background">#ff202020</color>
+    <color name="text_view_background">#85000000</color>
+    <color name="text_view_header">#90203b3b</color>
+    <color name="white">#ffffffff</color>
+    <color name="grey_transparent">#a0000000</color>
+    <color name="black">#ff000000</color>
 </resources>

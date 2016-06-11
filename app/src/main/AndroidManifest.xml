@@ -4,7 +4,7 @@
 
     <application android:allowBackup="true" android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher" android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppThemeDark">
         <activity android:label="@string/app_name" android:name=".MainActivity" android:launchMode="singleTop" android:theme="@style/mainTheme" android:configChanges="orientation|screenSize">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

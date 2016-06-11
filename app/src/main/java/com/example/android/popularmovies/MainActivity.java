@@ -2,8 +2,10 @@ package com.example.android.popularmovies;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -23,12 +25,32 @@ import java.util.Iterator;
 /**
  * Created by modassirpc on 08-06-2016.
  */
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,itemSelected {
 
     NavigationView navigation_view;
     private DrawerLayout drawer_layout;
     private Toolbar toolBar;
     String category = "popular";
+    boolean mTwoPane = false;
+    private String guestSeesionID;
+    private SharedPreferences prefs;
+
+
+    private class GetGuestSession extends AsyncTask<Void, Void, Integer> {
+        private GetGuestSession() {
+        }
+
+        protected Integer doInBackground(Void... params) {
+            MainActivity.this.guestSeesionID = JSONHelper.GetGuestSessionID(MainActivity.this);
+            return Integer.valueOf(1);
+        }
+
+        protected void onPostExecute(Integer result) {
+            prefs.edit().putString("guestId",guestSeesionID).commit();
+
+
+        }
+    }
 
 
 
@@ -39,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.navigation_view = ((NavigationView)findViewById(R.id.navigation_view));
         this.drawer_layout = ((DrawerLayout)findViewById(R.id.drawer_layout));
         this.toolBar = ((Toolbar)findViewById(R.id.toolBar));
+        prefs = (SharedPreferences)PreferenceManager.getDefaultSharedPreferences(this);
         if(getIntent().getStringExtra("sort") != null)
             category = (String) getIntent().getStringExtra("sort");
 
@@ -49,8 +72,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(category.equals("top_rated"))
             setTitle("Top Rated Movies");
+        if(findViewById(R.id.detail) != null){
+            mTwoPane = true;
+            findViewById(R.id.detail).setVisibility(View.GONE);
+        }
+        else{
+            mTwoPane = false;
+        }
+        new GetGuestSession().execute(new Void[0]);
         setUpDrawer();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(category)).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, PlaceholderFragment.newInstance(category,mTwoPane)).commitAllowingStateLoss();
         this.navigation_view.setNavigationItemSelectedListener(this);
 
 
@@ -83,6 +114,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    @Override
+    public void onItemSelected(String movie_id) {
+        if(mTwoPane == true){
+
+            findViewById(R.id.detail).setVisibility(View.VISIBLE);
+            DetailFragment detailFragment = new DetailFragment();
+            Bundle args = new Bundle();
+            args.putString("movie_id", movie_id);
+            detailFragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction().replace(R.id.detail, detailFragment).commitAllowingStateLoss();
+
+        }
+        else {
+            Intent intent = new Intent(this,DetailActivity.class);
+            intent.putExtra("movie_id",movie_id);
+            startActivity(intent);
+        }
+
+
+    }
+
     public static class PlaceholderFragment extends Fragment {
         private boolean loadingnewpage;
         private GoogleCardsAdapter mGoogleCardsAdapter;
@@ -92,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ProgressDialog pw;
         private GridView gridView;
         String query = "popular";
+        Boolean twoPane = false;
 
 
 
@@ -144,10 +197,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-        public static PlaceholderFragment newInstance(String cat) {
+        public static PlaceholderFragment newInstance(String cat,Boolean two) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putString("query", cat);
+            args.putBoolean("pane",two);
             fragment.setArguments(args);
             return fragment;
         }
@@ -162,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.page = 1;
             this.loadingnewpage = true;
             query = getArguments().getString("query");
+            twoPane = getArguments().getBoolean("pane");
             Log.e("Arguments",query);
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             this.gridView = (GridView) rootView.findViewById(R.id.gridview);

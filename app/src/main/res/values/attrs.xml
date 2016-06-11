@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="backdropActionbarGradient" format="reference" />
+    <attr name="movieDetailBarBackground" format="reference" />
+    <attr name="textListEntryTitleColor" format="reference|color" />
+    <attr name="imageBackgroundStroke" format="reference" />
+    <attr name="textMovieDetailsTitle" format="reference" />
+    <attr name="textMovieDetailsHeader" format="reference" />
+    <attr name="textMovieDetails" format="reference" />
+</resources>

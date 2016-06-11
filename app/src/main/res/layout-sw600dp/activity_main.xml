@@ -7,10 +7,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout android:id="@+id/top" android:background="@color/text_view_header" android:layout_width="fill_parent" android:layout_height="fill_parent">
-    <include android:id="@+id/toolBar" layout="@layout/toolbar_layout" />
-    <RelativeLayout android:id="@+id/frames" android:background="@color/text_view_header" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/toolBar">
-    <FrameLayout android:id="@+id/container" android:background="@color/text_view_header" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-    </RelativeLayout>
+        <include android:id="@+id/toolBar" layout="@layout/toolbar_layout" />
+        <RelativeLayout android:id="@+id/frames" android:background="@color/text_view_header" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/toolBar">
+            <FrameLayout android:id="@+id/container" android:background="@color/text_view_header" android:layout_width="@dimen/container_width" android:layout_height="match_parent" />
+            <FrameLayout android:id="@+id/detail" android:layout_width="match_parent" android:layout_height="match_parent" />
+        </RelativeLayout>
     </RelativeLayout>
     <android.support.design.widget.NavigationView android:layout_gravity="left" android:id="@+id/navigation_view" android:layout_width="wrap_content" android:layout_height="fill_parent" app:menu="@menu/navigation_drawer_menu" app:itemIconTint="@drawable/nav_drawer_item" app:itemTextColor="@drawable/nav_drawer_item">
 

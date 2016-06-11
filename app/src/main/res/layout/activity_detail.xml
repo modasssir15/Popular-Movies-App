@@ -1,38 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:id="@+id/base_layout"  android:layout_width="fill_parent" android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-        <ImageView android:id="@+id/imageMovie" android:layout_width="@dimen/img_width" android:layout_height="@dimen/img_width" android:layout_marginLeft="@dimen/img_margin" android:layout_marginRight="@dimen/img_margin"
-            android:layout_marginTop="@dimen/img_marginTop" />
-        <TextView android:textSize="@dimen/text_small"  android:id="@+id/text" android:paddingLeft="0dp" android:layout_width="wrap_content"  android:layout_marginLeft="15dp" android:layout_height="200dp" android:layout_weight="1.0"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/imageMovie"
-            android:layout_alignParentEnd="true"
-            android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/release"
-        android:layout_marginTop="@dimen/release_margin"
-        android:layout_alignTop="@+id/imageMovie"
-        android:layout_toEndOf="@+id/imageMovie"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/votes"
-        android:layout_marginTop="@dimen/votes_margin"
-        android:layout_below="@+id/release"
-        android:layout_toEndOf="@+id/imageMovie"
-        android:textStyle="bold" />
-    <RatingBar
-        android:id="@+id/ratingBar" android:paddingLeft="@dimen/ratingbar_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:progress="95" android:numStars="5" android:isIndicator="false"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_marginTop="@dimen/ratingbar_margin"
-        android:layout_below="@+id/votes"
-        android:layout_toEndOf="@+id/imageMovie" />
+    <FrameLayout android:id="@+id/container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
 
 </RelativeLayout>
