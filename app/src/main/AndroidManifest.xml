@@ -11,7 +11,16 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name=".DetailActivity" android:launchMode="singleTop" android:configChanges="orientation|screenSize" />
+        <activity android:label="@string/app_name" android:name=".DetailActivity" android:launchMode="singleTop" android:parentActivityName=".MainActivity"  android:configChanges="orientation|screenSize" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.popularmovies.MainActivity" />
+            </activity>
+        <receiver android:name="com.example.android.popularmovies.receiver.InternetChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

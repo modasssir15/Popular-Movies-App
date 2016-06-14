@@ -71,11 +71,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(this.toolBar);
         if(category.equals("popular")){
             setTitle("Popular Movies");
+            navigation_view.setCheckedItem(R.id.drawer_popular);
         }
-        else if(category.equals("top_rated"))
+        else if(category.equals("top_rated")) {
             setTitle("Top Rated Movies");
-        else if(category.equalsIgnoreCase("favourites"))
+            navigation_view.setCheckedItem(R.id.drawer_rated);
+        }
+        else if(category.equalsIgnoreCase("favourites")) {
             setTitle("Favourite Movies");
+            navigation_view.setCheckedItem(R.id.drawer_favourites);
+        }
         if(findViewById(R.id.detail) != null){
             mTwoPane = true;
             findViewById(R.id.detail).setVisibility(View.GONE);

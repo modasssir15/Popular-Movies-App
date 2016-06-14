@@ -2,8 +2,10 @@ package com.example.android.popularmovies;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ public class DetailActivity extends AppCompatActivity{
         movie_id = (String) getIntent().getStringExtra("movie_id");
         this.toolBar = ((Toolbar)findViewById(R.id.toolBar));
         setSupportActionBar(this.toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DetailFragment detailFragment = new DetailFragment();
         Bundle args = new Bundle();
         args.putString("movie_id", movie_id);
@@ -39,6 +42,15 @@ public class DetailActivity extends AppCompatActivity{
 
 
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

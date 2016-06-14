@@ -92,8 +92,16 @@ public class DetailFragment extends Fragment {
         this.mPlayTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (trailer != null)
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailer.trailer_url)));
+                if (trailer != null) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailer.trailer_url));
+                    Intent browserChooserIntent = Intent.createChooser(browserIntent , "Choose an App of your choice");
+                    if (browserIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(browserChooserIntent);
+
+                    }
+
+                }
+
             }
         });
         new GetMovies(movie_id).execute(new Void[0]);
@@ -102,6 +110,7 @@ public class DetailFragment extends Fragment {
 
      return view;
     }
+
     public static void setTypeFace(Typeface tf, TextView... views) {
         for (TextView view : views) {
             if (view != null) {

@@ -73,7 +73,7 @@ public class DatabaseAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE favourites(movieId TEXT,movieName TEXT,movieOverview TEXT,movieRelease TEXT,movieRating TEXT,movieVotes TEXT,backdropUrl TEXT,posterUrl TEXT);");
+            db.execSQL("CREATE TABLE favourites(movieId TEXT PRIMARY KEY,movieName TEXT,movieOverview TEXT,movieRelease TEXT,movieRating TEXT,movieVotes TEXT,backdropUrl TEXT,posterUrl TEXT);");
 
 
 
@@ -81,7 +81,7 @@ public class DatabaseAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("CREATE TABLE favourites(movieId TEXT,movieName TEXT,movieOverview TEXT,movieRelease TEXT,movieRating TEXT,movieVotes TEXT,backdropUrl TEXT,posterUrl TEXT);");
+            db.execSQL("CREATE TABLE favourites(movieId TEXT PRIMARY KEY,movieName TEXT,movieOverview TEXT,movieRelease TEXT,movieRating TEXT,movieVotes TEXT,backdropUrl TEXT,posterUrl TEXT);");
 
         }
     }
